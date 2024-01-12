@@ -20,13 +20,13 @@ public class ConstraintViolationDto implements Serializable {
     private static final long serialVersionUID = 161L;
 
     /**
-     * Nombre del campo que presenta errores
+     *  @apiNote Campo que genero el error, field de tipo {@link String}
      */
     @JsonProperty("campo")
     private String field;
 
     /**
-     * Mensaje de error del campo
+     *  @apiNote Campo message asociado al error, message de tipo {@link String}
      */
     @JsonProperty("mensaje")
     private String message;

@@ -5,6 +5,7 @@
 2. [Operaciones](#Operaciones)
 3. [Migración](#Migración)
 4. [Pruebas](#Pruebas)
+5. [Patrones](#Patrones)
 
 # Descripción
 Proyecto trabajado con Maven, Java 11 y la versión de spring más actual que esta versión de java permite, 
@@ -42,3 +43,7 @@ desplegar el reporte de los test unitarios
 ```bash
 mvn clean test
 ```
+
+# Patrones
+
+- Para la gestión de las operaciones del producto y su detalle , para encapsular la sub operación se uso Patron Facade

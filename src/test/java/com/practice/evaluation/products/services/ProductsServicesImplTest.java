@@ -1,5 +1,6 @@
 package com.practice.evaluation.products.services;
 
+import com.practice.evaluation.products.commons.exception.ProductException;
 import com.practice.evaluation.products.dto.ProductsDetailsDto;
 import com.practice.evaluation.products.entitiy.ProductsEntity;
 import com.practice.evaluation.products.model.ProductsRequest;
@@ -30,9 +31,40 @@ public class ProductsServicesImplTest {
     @Autowired
     private ProductsServicesImpl productsServicesImpl;
 
+
     @Test
     @DisplayName("should give can persist at product and details associated")
     void shouldGivePersistProductsAndDetails() {
+
+        var productRequest = ProductsRequest.builder()
+                .ram("16GB")
+                .model("Laptop A")
+                .year("2024")
+                .productsDetailsDtoList(List.of(ProductsDetailsDto.builder()
+                        .gpu("3050TI")
+                        .storage("512GB")
+                        .build()))
+                .build();
+
+        var entitySave =   ProductsEntity.builder()
+                .year(productRequest.getYear())
+                .ram(productRequest.getRam())
+                .model(productRequest.getModel())
+                .id(BigInteger.ONE)
+                .build();
+
+        Mockito.when(productsRepository.findByModel(productRequest.getModel())).thenReturn(null);
+
+        Mockito.when(productsRepository.save(Mockito.any(ProductsEntity.class))).thenReturn(entitySave);
+
+        Mockito.when(productsDetailsServices.handlerPersistProductDetails(Mockito.any(ProductsRequest.class),Mockito.any(BigInteger.class))).thenReturn(true);
+
+        Assertions.assertNotNull(productsServicesImpl.handlerPersistProduct(productRequest));
+    }
+
+    @Test
+    @DisplayName("shouldn't give can persist because exist")
+    void shouldNtGivePersistProductsBecauseExist() {
 
         var productRequest = ProductsRequest.builder()
                 .ram("16GB")
@@ -48,20 +80,12 @@ public class ProductsServicesImplTest {
                 .year(productRequest.getYear())
                 .ram(productRequest.getRam())
                 .model(productRequest.getModel())
-                .build();
-
-        var entitySave =   ProductsEntity.builder()
-                .year(productRequest.getYear())
-                .ram(productRequest.getRam())
-                .model(productRequest.getModel())
                 .id(BigInteger.ONE)
                 .build();
 
-        Mockito.when(productsRepository.save(Mockito.any(ProductsEntity.class))).thenReturn(entitySave);
+        Mockito.when(productsRepository.findByModel(productRequest.getModel())).thenReturn(entity);
 
-        Mockito.when(productsDetailsServices.handlerPersistProductDetails(productRequest,entity.getId())).thenReturn(true);
-
-        Assertions.assertNotNull(productsServicesImpl.handlerPersistProduct(productRequest));
+        Assertions.assertThrows(ProductException.class, () -> productsServicesImpl.handlerPersistProduct(productRequest));
     }
 
     @Test
@@ -91,6 +115,8 @@ public class ProductsServicesImplTest {
                 .id(BigInteger.ONE)
                 .build();
 
+        Mockito.when(productsRepository.findByModel(productRequest.getModel())).thenReturn(null);
+
         Mockito.when(productsRepository.save(Mockito.any(ProductsEntity.class))).thenReturn(entitySave);
 
         Mockito.when(productsDetailsServices.handlerPersistProductDetails(productRequest,entity.getId())).thenReturn(false);
@@ -118,6 +144,8 @@ public class ProductsServicesImplTest {
                 .model(productRequest.getModel())
                 .id(BigInteger.ONE)
                 .build();
+
+        Mockito.when(productsRepository.findByModel(productRequest.getModel())).thenReturn(null);
 
         Mockito.when(productsRepository.save(Mockito.any(ProductsEntity.class))).thenReturn(entitySave);
 

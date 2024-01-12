@@ -26,4 +26,19 @@ public class Constants {
      * @apiNote  Constante para cuando se suministre un campo en el request que sea de tipo string de forma vacia , ERROR_IS_STRING de tipo {@link String}
      */
     public static final String ERROR_IS_STRING = "Lo sentimos, Debe ingresar una información válida.";
+
+    /**
+     * @apiNote  Constante para cuando se gestiona un producto , MESSAGE_OK de tipo {@link String}
+     */
+    public static final String MESSAGE_PRODUCT_OK = "El producto se ha registrado de forma satisfactoria";
+
+    /**
+     * @apiNote  Constante para cuando se gestiona un producto , MESSAGE_PRODUCT_ERROR de tipo {@link String}
+     */
+    public static final String MESSAGE_PRODUCT_ERROR = "El producto no ha podido registrarse de forma satisfactoria";
+
+    /**
+     * @apiNote  Constante para cuando se intenta persistir un mismo producto , MESSAGE_PRODUCT_ERROR_EXIST de tipo {@link String}
+     */
+    public static final String MESSAGE_PRODUCT_ERROR_EXIST = "El producto no ha podido registrarse, ya se encuentra registrado";
 }

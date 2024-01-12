@@ -6,12 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.context.request.WebRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,28 +18,38 @@ import java.util.List;
  *
  * @version 1.0.0
  */
-//@RestControllerAdvice
+@RestControllerAdvice
 @Slf4j
 public class ExceptionControllerHandler {
 
     /**
-     * Metodo que captura la excepcion al momento de
-     * @param ex  Objeto <strong>MethodArgumentNotValidException</strong> con el cual se maneja la excepción
-     * @param request Objeto con los datos de la petición
-     * @return Objeto con el mensaje de la excepción capturada
+     * @apiNote handlerProductException, Excepción para gestionar y renderizar los errores en el procesamiento de la petición
+     *
+     * @param ex de tipo {@link ProductException}
+     * @return {@link ResponseEntity}&lt;{@link Response}&lt;{@link Object}&gt;
      */
-    @ExceptionHandler({HttpRequestMethodNotSupportedException.class})
-    public Response<String> methodArgumentNotValidException(HttpRequestMethodNotSupportedException ex, WebRequest request) {
+    @ExceptionHandler(ProductException.class)
+    public ResponseEntity<Response<Object>> handlerProductException(ProductException ex) {
+        log.info("Excepcion: {}", ex.getMessage());
 
-        log.info("MethodArgumentNotValidException: Url Request: {} | Message: {}", request.getContextPath(), ex.getMessage());
-
-        return Response.<String>builder()
+        Response<Object> response = Response.builder()
                 .failure(true)
-                .code(HttpStatus.BAD_REQUEST.value())
-                .body(ex.getMessage())
+                .code(ex.getStatus().value())
+                .message(ex.getMessage())
+                .body(null)
                 .build();
+
+        return ResponseEntity.status(ex.getStatus().value())
+                .header("Content-Type", "application/json")
+                .body(response);
     }
 
+    /**
+     * @apiNote handleMethodArgumentNotValidException, Excepción para gestionar y renderizar los errores de la petición
+     *
+     * @param ex de tipo {@link MethodArgumentNotValidException}
+     * @return {@link ResponseEntity}&lt;{@link Response}&lt;{@link List}&lt;{@link ConstraintViolationDto}&gt;&gt;&gt;
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Response<List<ConstraintViolationDto>>> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
         BindingResult result = ex.getBindingResult();

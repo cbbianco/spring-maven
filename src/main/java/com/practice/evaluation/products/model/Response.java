@@ -30,6 +30,11 @@ public class Response<T> {
     private Integer code;
 
     /**
+     * @apiNote  Determina el mensaje resultante , message de tipo {@link Integer}
+     */
+    private String message;
+
+    /**
      * @apiNote  'body' se establece como el posible cuerpo que podría retornarse en la respuesta , body de tipo {@link T}
      */
     private T body;

@@ -37,13 +37,11 @@ public class ProductsDetailsServicesImpl implements ProductsDetailsServices{
     public Boolean handlerPersistProductDetails(ProductsRequest productsRequest, BigInteger idProduct) {
         log.info("ProductsServicesImpl@handlerPersistProductDetails");
         List<ProductsDetailsEntity> detailsList = new ArrayList<>();
-        productsRequest.getProductsDetailsDtoList().forEach(e -> {
-            detailsList.add(ProductsDetailsEntity.builder()
-                    .gpu(e.getGpu())
-                    .idProduct(idProduct)
-                    .storage(e.getStorage())
-                    .build());
-        });
+        productsRequest.getProductsDetailsDtoList().forEach(e -> detailsList.add(ProductsDetailsEntity.builder()
+                .gpu(e.getGpu())
+                .idProduct(idProduct)
+                .storage(e.getStorage())
+                .build()));
 
         var details = productsDetailsRepository.saveAll(detailsList);
         log.info("Detalles Insertados: {}", details);
