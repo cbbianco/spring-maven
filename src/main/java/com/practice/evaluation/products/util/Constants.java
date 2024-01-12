@@ -33,12 +33,27 @@ public class Constants {
     public static final String MESSAGE_PRODUCT_OK = "El producto se ha registrado de forma satisfactoria";
 
     /**
+     * @apiNote  Constante para cuando se gestiona un producto , MESSAGE_PRODUCT_UPDATE_OK de tipo {@link String}
+     */
+    public static final String MESSAGE_PRODUCT_UPDATE_OK = "El producto se ha podido actualizar de forma satisfactoria";
+
+    /**
      * @apiNote  Constante para cuando se gestiona un producto , MESSAGE_PRODUCT_ERROR de tipo {@link String}
      */
     public static final String MESSAGE_PRODUCT_ERROR = "El producto no ha podido registrarse de forma satisfactoria";
 
     /**
+     * @apiNote  Constante para cuando se gestiona un producto , MESSAGE_PRODUCT_UPDATE_ERROR de tipo {@link String}
+     */
+    public static final String MESSAGE_PRODUCT_UPDATE_ERROR = "El producto no ha podido actualizar de forma satisfactoria";
+
+    /**
      * @apiNote  Constante para cuando se intenta persistir un mismo producto , MESSAGE_PRODUCT_ERROR_EXIST de tipo {@link String}
      */
     public static final String MESSAGE_PRODUCT_ERROR_EXIST = "El producto no ha podido registrarse, ya se encuentra registrado";
+
+    /**
+     * @apiNote  Constante para cuando se intenta actualizar producto que no existe , MESSAGE_PRODUCT_ERROR_NOT_EXIST de tipo {@link String}
+     */
+    public static final String MESSAGE_PRODUCT_ERROR_NOT_EXIST = "El producto que desea actualizar no se encuentra";
 }

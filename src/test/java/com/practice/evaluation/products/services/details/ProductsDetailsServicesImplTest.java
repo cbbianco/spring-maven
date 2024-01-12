@@ -1,7 +1,7 @@
 package com.practice.evaluation.products.services.details;
 
 import com.practice.evaluation.products.dto.ProductsDetailsDto;
-import com.practice.evaluation.products.entitiy.ProductsDetailsEntity;
+import com.practice.evaluation.products.entity.ProductsDetailsEntity;
 import com.practice.evaluation.products.model.ProductsRequest;
 import com.practice.evaluation.products.repository.ProductsDetailsRepository;
 import org.junit.jupiter.api.Assertions;
@@ -11,7 +11,6 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.util.Assert;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -69,5 +68,53 @@ public class ProductsDetailsServicesImplTest {
         Mockito.when(productsDetailsRepository.saveAll(Mockito.anyList())).thenReturn(List.of());
 
         Assertions.assertNotNull(productsDetailsServicesImpl.handlerPersistProductDetails(productRequest, BigInteger.ONE));
+    }
+
+    @Test
+    @DisplayName("shouldn't give can update at details associated by not found the product principal")
+    void shouldNtGiveUpdateByDetailsAssociatedByNotFoundTheProductPrincipal() {
+
+        var productRequest = ProductsRequest.builder()
+                .ram("16GB")
+                .model("Laptop A")
+                .year("2024")
+                .productsDetailsDtoList(List.of(ProductsDetailsDto.builder()
+                        .gpu("3050TI")
+                        .storage("512GB")
+                        .build()))
+                .build();
+
+        Mockito.when(productsDetailsRepository.findAllById(Mockito.anyList())).thenReturn(List.of());
+
+        Assertions.assertNotNull(productsDetailsServicesImpl.handlerUpdateProductDetails(productRequest, BigInteger.ONE));
+    }
+
+    @Test
+    @DisplayName("shouldn't give can update at details associated by not found the product principal")
+    void shouldGiveUpdateByDetailsAssociated() {
+
+        var productRequest = ProductsRequest.builder()
+                .ram("16GB")
+                .model("Laptop A")
+                .year("2024")
+                .productsDetailsDtoList(List.of(ProductsDetailsDto.builder()
+                        .gpu("3050TI")
+                        .storage("512GB")
+                        .build()))
+                .build();
+
+        var entityDetails = List.of(
+                ProductsDetailsEntity.builder()
+                        .id(BigInteger.ONE)
+                        .gpu("3050TI")
+                        .storage("512GB")
+                        .build()
+        );
+
+        Mockito.when(productsDetailsRepository.findAllById(Mockito.anyList())).thenReturn(entityDetails);
+
+        Mockito.when(productsDetailsRepository.saveAll(Mockito.anyList())).thenReturn(entityDetails);
+
+        Assertions.assertNotNull(productsDetailsServicesImpl.handlerUpdateProductDetails(productRequest, BigInteger.ONE));
     }
 }

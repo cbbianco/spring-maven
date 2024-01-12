@@ -1,13 +1,11 @@
-package com.practice.evaluation.products.entitiy;
+package com.practice.evaluation.products.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.practice.evaluation.products.commons.audit.Audit;
 import lombok.*;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.math.BigInteger;
-import java.util.List;
 
 @Builder
 @AllArgsConstructor

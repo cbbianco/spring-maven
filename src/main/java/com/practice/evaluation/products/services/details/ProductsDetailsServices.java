@@ -1,11 +1,9 @@
 package com.practice.evaluation.products.services.details;
 
-import com.practice.evaluation.products.entitiy.ProductsDetailsEntity;
-import com.practice.evaluation.products.entitiy.ProductsEntity;
+import com.practice.evaluation.products.entity.ProductsEntity;
 import com.practice.evaluation.products.model.ProductsRequest;
 
 import java.math.BigInteger;
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -23,4 +21,13 @@ public interface ProductsDetailsServices {
      * @return {@link Optional}&gt;&lt;{@link ProductsEntity}&gt;
      */
     Boolean handlerPersistProductDetails(ProductsRequest productsRequest, BigInteger idProduct);
+
+    /**
+     * @apiNote handlerUpdateProductDetails, Gestiona la actualización del detalle asociado a su producto
+     *
+     * @param productsRequest de tipo {@link ProductsRequest}
+     * @param idProduct de tipo {@link BigInteger}
+     * @return {@link Optional}&gt;&lt;{@link ProductsEntity}&gt;
+     */
+    Boolean handlerUpdateProductDetails(ProductsRequest productsRequest, BigInteger idProduct);
 }

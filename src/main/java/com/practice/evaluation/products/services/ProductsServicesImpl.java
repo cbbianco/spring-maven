@@ -1,7 +1,7 @@
 package com.practice.evaluation.products.services;
 
 import com.practice.evaluation.products.commons.exception.ProductException;
-import com.practice.evaluation.products.entitiy.ProductsEntity;
+import com.practice.evaluation.products.entity.ProductsEntity;
 import com.practice.evaluation.products.model.ProductsRequest;
 import com.practice.evaluation.products.repository.ProductsRepository;
 import com.practice.evaluation.products.services.details.ProductsDetailsServices;
@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigInteger;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -71,10 +72,35 @@ public class ProductsServicesImpl implements ProductsServices{
     }
 
     /**
-     * @see ProductsServices#handlerUpdateProduct()
+     * @see ProductsServices#handlerUpdateProduct(ProductsRequest, String)
      */
     @Override
-    public String handlerUpdateProduct() {
-        return null;
+    public String handlerUpdateProduct(ProductsRequest productsRequest, String productId) {
+        try {
+            log.info("ProductsServicesImpl@handlerUpdateProduct");
+            var finder = productsRepository.findById(BigInteger.valueOf(Long.parseLong(productId)));
+            if(finder.isPresent()) {
+                var product = Optional.of(productsRepository.save(ProductsEntity.builder()
+                        .year(productsRequest.getYear())
+                        .ram(productsRequest.getRam())
+                        .model(productsRequest.getModel())
+                        .id(finder.get().getId())
+                        .build()));
+
+                log.info("Producto Actualizado: {}", product);
+                return productsDetailsServices.handlerUpdateProductDetails(productsRequest, product.get().getId())
+                        ? Constants.MESSAGE_PRODUCT_UPDATE_OK
+                        : Constants.MESSAGE_PRODUCT_UPDATE_ERROR;
+            }
+
+            throw new ProductException(Constants.MESSAGE_PRODUCT_ERROR_NOT_EXIST, HttpStatus.NO_CONTENT);
+        }catch (Exception e) {
+            if(e instanceof ProductException) {
+                var exception = (ProductException)e;
+                throw new ProductException(exception.getMessage(), exception.getStatus());
+            }
+
+            throw new RuntimeException("Error al actualizar su producto", e);
+        }
     }
 }

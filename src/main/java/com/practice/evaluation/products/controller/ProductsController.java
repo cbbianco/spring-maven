@@ -1,6 +1,5 @@
 package com.practice.evaluation.products.controller;
 
-import com.practice.evaluation.products.entitiy.ProductsEntity;
 import com.practice.evaluation.products.model.ProductsRequest;
 import com.practice.evaluation.products.model.Response;
 import com.practice.evaluation.products.services.ProductsServices;
@@ -12,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Optional;
 
 /**
  * @apiNote ProductsController, Controller encargado de gestionar recibir las solicitudes asociadas a los productos
@@ -34,7 +32,7 @@ public class ProductsController {
      * @apiNote saveProducts, Endpoint encargado de almacenar un producto y sus detalle
      *
      * @param productsRequest de tipo {@link ProductsRequest}
-     * @return {@link ResponseEntity}&lt;{@link Response}&lt;{@link Optional}&gt;&lt;{@link ProductsEntity}&gt;&gt;
+     * @return {@link ResponseEntity}&lt;{@link Response}&lt;{@link String}&gt;&gt;
      */
     @PostMapping(value = "/productos/guardar", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Response<String>> saveProducts(@RequestBody  @Valid ProductsRequest productsRequest) {
@@ -45,17 +43,20 @@ public class ProductsController {
                 .body(null)
                 .build(), HttpStatus.CREATED);
     }
-
     /**
+     * @apiNote saveProducts, Endpoint encargado de almacenar un producto y sus detalle
      *
-     * @return {@link }
+     * @param productsRequest de tipo {@link ProductsRequest}
+     * @param productId de tipo {@link String}
+     * @return {@link ResponseEntity}&lt;{@link Response}&lt;{@link String}&gt;&gt;
      */
     @PutMapping(value = "/productos/actualizar", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Response<String>> updateProducts() {
+    public ResponseEntity<Response<String>> updateProducts(@RequestBody  @Valid ProductsRequest productsRequest, @RequestParam("producto") String productId) {
         return new ResponseEntity<>(Response.<String>builder()
                 .failure(false)
                 .code(HttpStatus.OK.value())
-                .body(productsServices.handlerUpdateProduct())
+                .message(productsServices.handlerUpdateProduct(productsRequest, productId))
+                .body(null)
                 .build(), HttpStatus.OK);
     }
 

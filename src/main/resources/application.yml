@@ -19,7 +19,7 @@ spring:
     username: ${MYSQL_USERNAME:root}
     password: ${MYSQL_PASSWORD:ce54rb14nc01986$}
   jpa:
-    show-sql: true
+    show-sql: false
   flyway:
     enabled: true
     baseline-on-migrate: true

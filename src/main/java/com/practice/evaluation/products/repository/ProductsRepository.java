@@ -1,8 +1,7 @@
 package com.practice.evaluation.products.repository;
 
-import com.practice.evaluation.products.entitiy.ProductsEntity;
+import com.practice.evaluation.products.entity.ProductsEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 

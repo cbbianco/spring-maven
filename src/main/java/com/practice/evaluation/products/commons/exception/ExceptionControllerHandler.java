@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -21,6 +22,22 @@ import java.util.List;
 @RestControllerAdvice
 @Slf4j
 public class ExceptionControllerHandler {
+
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public ResponseEntity<Response<Object>> handlerMissingParameter(MissingServletRequestParameterException ex) {
+        log.info("Excepcion: {}", ex.getMessage());
+
+        Response<Object> response = Response.builder()
+                .failure(true)
+                .code(HttpStatus.BAD_REQUEST.value())
+                .message(ex.getMessage())
+                .body(null)
+                .build();
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .header("Content-Type", "application/json")
+                .body(response);
+    }
 
     /**
      * @apiNote handlerProductException, Excepción para gestionar y renderizar los errores en el procesamiento de la petición

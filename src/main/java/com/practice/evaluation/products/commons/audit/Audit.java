@@ -12,6 +12,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PreUpdate;
 import java.time.LocalDateTime;
 
 /**
@@ -40,4 +41,13 @@ public class Audit<U> {
     @LastModifiedDate
     @Column(name = "fecha_modificacion")
     private LocalDateTime fechaModificacion;
+
+    /**
+     * @apiNote preUpdate, Actualización de fechas de creación
+     */
+    @PreUpdate
+    public void preUpdate() {
+        this.fechaCreacion = LocalDateTime.now();
+        this.usuarioCreacion = this.usuarioModificacion;
+    }
 }

@@ -1,6 +1,6 @@
 package com.practice.evaluation.products.services.details;
 
-import com.practice.evaluation.products.entitiy.ProductsDetailsEntity;
+import com.practice.evaluation.products.entity.ProductsDetailsEntity;
 import com.practice.evaluation.products.model.ProductsRequest;
 import com.practice.evaluation.products.repository.ProductsDetailsRepository;
 import lombok.RequiredArgsConstructor;
@@ -45,6 +45,37 @@ public class ProductsDetailsServicesImpl implements ProductsDetailsServices{
 
         var details = productsDetailsRepository.saveAll(detailsList);
         log.info("Detalles Insertados: {}", details);
+        return !details.isEmpty();
+    }
+
+    /**
+     * @see ProductsDetailsServices#handlerUpdateProductDetails(ProductsRequest, BigInteger)
+     */
+    @Override
+    public Boolean handlerUpdateProductDetails(ProductsRequest productsRequest, BigInteger idProduct) {
+        log.info("ProductsServicesImpl@handlerUpdateProductDetails");
+        var finder = productsDetailsRepository.findAllById(List.of(idProduct));
+        log.info("Detalles Encontrados: {}", finder);
+        List<ProductsDetailsEntity> details = new ArrayList<>();
+        if(!finder.isEmpty()) {
+            List<ProductsDetailsEntity> detailsList = new ArrayList<>();
+            productsRequest.getProductsDetailsDtoList().forEach(e -> detailsList.add(ProductsDetailsEntity.builder()
+                    .gpu(e.getGpu())
+                    .idProduct(idProduct)
+                    .storage(e.getStorage())
+                    .build()));
+
+            log.info("Se produce actualizar el Id");
+            finder.forEach(e-> {
+                detailsList.forEach(detail -> {
+                    detail.setId(e.getId());
+                });
+            });
+
+            details = productsDetailsRepository.saveAll(detailsList);
+            log.info("Detalles Actualizados: {}", details);
+        }
+
         return !details.isEmpty();
     }
 }
