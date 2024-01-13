@@ -112,6 +112,8 @@
                         <exclude>com/practice/evaluation/products/dto/**</exclude>
                         <exclude>com/practice/evaluation/products/model/**</exclude>
                         <exclude>com/practice/evaluation/products/entity/**</exclude>
+                        <exclude>com/practice/evaluation/products/commons/audit/**</exclude>
+                        <exclude>com/practice/evaluation/products/commons/interceptor/**</exclude>
                     </excludes>
                 </configuration>
                 <executions>
