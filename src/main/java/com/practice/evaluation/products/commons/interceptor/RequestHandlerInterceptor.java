@@ -1,6 +1,7 @@
 package com.practice.evaluation.products.commons.interceptor;
 
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,7 +15,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 /**
- *  @apiNote RequestHandlerInterceptor, Interceptor
+ *  @apiNote RequestHandlerInterceptor, Interceptor de las solicitudes entrante
  *
  * @version 1.0.0
  */
@@ -41,7 +42,7 @@ public class RequestHandlerInterceptor implements HandlerInterceptor {
      * @return {@link Boolean}
      */
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
+    public boolean preHandle(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler){
         startTime = System.currentTimeMillis();
         return true;
     }
@@ -56,7 +57,7 @@ public class RequestHandlerInterceptor implements HandlerInterceptor {
      * @throws Exception Excepción que puede ocurrir
      */
     @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+    public void postHandle(HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler, ModelAndView modelAndView) throws Exception {
         long endTime = System.currentTimeMillis();
         long executionTime = endTime - startTime;
 

@@ -106,6 +106,9 @@ mvn flyway:migrate
 #### 6.- 2 campos del objeto maestro debe venir del Cache de la aplicación.
 ##### - a. Se puede usar Cache estándar o Lazy Cache (o cualquiera que crea pertinente).
 
+Para este punto se utilizo cache estandar y se retorna valor siempre y cuando existan por lo menos 2 elementos y la respuesta se 
+asigna al campo correspondiente
+
 #### 7.- Se debe poder traer información de un servicio externo para devolver información del producto
 ##### - a. Usar https://retool.com/ u otro, para generar el mock del servicio externo
 ##### - b. Se deberá enviar el id del producto y traer información complementaria del  producto.

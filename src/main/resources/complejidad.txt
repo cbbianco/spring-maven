@@ -33,3 +33,4 @@ URL: /productos/api/v1/productos/consultar - Tiempo de respuesta: 633 ms - 2024-
 URL: /productos/api/v1/productos/consultar - Tiempo de respuesta: 1374 ms - 2024-01-13T23:19:39.549276
 URL: /productos/api/v1/productos/consultar - Tiempo de respuesta: 107 ms - 2024-01-13T23:20:00.889411
 URL: /productos/api/v1/productos/consultar - Tiempo de respuesta: 926 ms - 2024-01-14T00:06:28.385932
+URL: /productos/api/v1/productos/consultar - Tiempo de respuesta: 700 ms - 2024-01-14T01:15:05.757619
