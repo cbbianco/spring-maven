@@ -1,4 +1,4 @@
-package com.practice.evaluation.products.dto;
+package com.practice.evaluation.products.dto.validations;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

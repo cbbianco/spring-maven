@@ -28,3 +28,10 @@ spring:
 
 app:
   route: ${ROUTE:src/main/resources/complejidad.txt}
+  uriMock: ${URI_MOCK:https://y77ov.wiremockapi.cloud/productos/mock}
+
+logging:
+  level:
+    org:
+      springframework:
+        cache=DEBUG:

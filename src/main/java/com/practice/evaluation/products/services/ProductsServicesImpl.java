@@ -1,21 +1,25 @@
 package com.practice.evaluation.products.services;
 
 import com.practice.evaluation.products.commons.exception.ProductException;
+import com.practice.evaluation.products.dto.response.ProductsResponseDto;
 import com.practice.evaluation.products.entity.ProductsEntity;
 import com.practice.evaluation.products.model.ProductsRequest;
+import com.practice.evaluation.products.repository.ProductsListRepository;
 import com.practice.evaluation.products.repository.ProductsRepository;
+import com.practice.evaluation.products.services.cache.ProductsCacheServices;
 import com.practice.evaluation.products.services.details.ProductsDetailsServices;
-import com.practice.evaluation.products.util.Constants;
+import com.practice.evaluation.products.util.callhttp.NotifiedServices;
+import com.practice.evaluation.products.util.literal.Constants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigInteger;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @apiNote ProductsServicesImpl, Servicio encargado de gestionar a los productos asociados
@@ -36,6 +40,27 @@ public class ProductsServicesImpl implements ProductsServices{
      * @apiNote  Gestiona las operaciones asociadas al detalle de los productos, productsDetailsServices de tipo {@link ProductsDetailsServices}
      */
     private final ProductsDetailsServices productsDetailsServices;
+
+    /**
+     *
+     */
+    private final ProductsListRepository productsListRepository;
+
+    /**
+     * @apiNote Uri del servicio externo, uri de tipo {@link String}
+     */
+    @Value("${app.uriMock}")
+    private String uri;
+
+    /**
+     * @apiNote  Gestiona las solicitudes externas, notifiedServices de tipo {@link NotifiedServices}
+     */
+    private final NotifiedServices<Object,ProductsResponseDto> notifiedServices;
+
+    /**
+     * @apiNote servicio de cache, productsCacheServices de tipo {@link ProductsCacheServices}
+     */
+    private final ProductsCacheServices productsCacheServices;
 
     /**
      * @see ProductsServices#handlerPersistProduct(ProductsRequest)
@@ -101,6 +126,34 @@ public class ProductsServicesImpl implements ProductsServices{
             }
 
             throw new RuntimeException("Error al actualizar su producto", e);
+        }
+    }
+
+    /**
+     * @see ProductsServices#handlerConsultProduct(String)
+     */
+    @Override
+    public List<ProductsResponseDto> handlerConsultProduct(String productId) {
+
+        try {
+            log.info("ProductsServicesImpl@handlerConsultProduct");
+            var responseExtern = this.notifiedServices.notifiedRequest(null, ProductsResponseDto.class, Map.of(), Map.of(), "GET", uri + "?producto=" + productId);
+            var products = productsListRepository.findById(BigInteger.valueOf(Long.parseLong(productId)));
+            log.info("Información Externa: {}", responseExtern);
+            if(!Objects.isNull(responseExtern) && products.isPresent()) {
+                log.info("Productos desde la BD: {}", products);
+                responseExtern.setProductsListEntity(products.get());
+            }
+
+            var productsCache = this.productsCacheServices.handlerProductsCache();
+            if(!productsCache.isEmpty()) {
+                log.info("Productos obtenido del cache: {}", productsCache);
+                responseExtern.setProductsCache(productsCache);
+            }
+
+            return List.of(responseExtern);
+        }catch (Exception e) {
+            throw new RuntimeException("Error al consultar su producto", e);
         }
     }
 }

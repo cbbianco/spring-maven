@@ -15,6 +15,8 @@ import java.time.LocalDateTime;
 
 /**
  *  @apiNote RequestHandlerInterceptor, Interceptor
+ *
+ * @version 1.0.0
  */
 @Slf4j
 public class RequestHandlerInterceptor implements HandlerInterceptor {

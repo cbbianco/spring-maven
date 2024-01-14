@@ -1,4 +1,4 @@
-package com.practice.evaluation.products.util;
+package com.practice.evaluation.products.util.literal;
 
 /**
  * @apiNote Constants,  'literales' Encargada de Gestionar o llevar los mensajes del proyecto

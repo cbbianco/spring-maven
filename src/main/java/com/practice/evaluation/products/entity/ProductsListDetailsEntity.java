@@ -1,14 +1,13 @@
 package com.practice.evaluation.products.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.practice.evaluation.products.commons.audit.Audit;
 import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigInteger;
 
 /**
- * @apiNote ProductsDetailsEntity, 'entity' Entidad de los detalles
+ * @apiNote ProductsListDetailsEntity, 'entity' Entidad de los Detalles, haciendo JOIN desde JPA
  *
  * @version 1.0.0
  */
@@ -20,7 +19,8 @@ import java.math.BigInteger;
 @Table(name = "detalles")
 @Setter(AccessLevel.PUBLIC)
 @Getter(AccessLevel.PUBLIC)
-public class ProductsDetailsEntity extends Audit<String> {
+public class ProductsListDetailsEntity {
+
 
     /**
      * @apiNote  Determina el id de su detalle , storage de id {@link BigInteger}

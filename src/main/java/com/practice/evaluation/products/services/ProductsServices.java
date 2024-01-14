@@ -1,6 +1,9 @@
 package com.practice.evaluation.products.services;
 
+import com.practice.evaluation.products.dto.response.ProductsResponseDto;
 import com.practice.evaluation.products.model.ProductsRequest;
+
+import java.util.List;
 
 /**
  * @apiNote ProductsServices, Abstracción encargado de gestionar a los productos asociados
@@ -29,4 +32,13 @@ public interface ProductsServices {
      * @return {@link String}
      */
     String handlerUpdateProduct(ProductsRequest productsRequest, String productId);
+
+    /**
+     * @apiNote handlerConsultProduct, Gestiona la consulta del producto
+
+     * @param productId de tipo {@link String}
+     *
+     * @return {@link List}&lt;{@link ProductsResponseDto}&gt;
+     */
+    List<ProductsResponseDto> handlerConsultProduct(String productId);
 }

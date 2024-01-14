@@ -1,9 +1,9 @@
-package com.practice.evaluation.products.dto;
+package com.practice.evaluation.products.dto.details;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.practice.evaluation.products.util.Constants;
+import com.practice.evaluation.products.util.literal.Constants;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;

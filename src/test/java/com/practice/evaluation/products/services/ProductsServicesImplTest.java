@@ -1,7 +1,7 @@
 package com.practice.evaluation.products.services;
 
 import com.practice.evaluation.products.commons.exception.ProductException;
-import com.practice.evaluation.products.dto.ProductsDetailsDto;
+import com.practice.evaluation.products.dto.details.ProductsDetailsDto;
 import com.practice.evaluation.products.entity.ProductsEntity;
 import com.practice.evaluation.products.model.ProductsRequest;
 import com.practice.evaluation.products.repository.ProductsRepository;

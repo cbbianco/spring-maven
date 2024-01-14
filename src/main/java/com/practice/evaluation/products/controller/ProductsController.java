@@ -61,11 +61,18 @@ public class ProductsController {
     }
 
     /**
+     * @apiNote consultProduct, Endpoint encargado de consultar un producto y sus detalle
      *
-     * @return {@link }
+     * @param productId de tipo {@link String}
+     * @return {@link ResponseEntity}&lt;{@link Response}&lt;{@link Object}&gt;&gt;
      */
     @GetMapping(value = "/productos/consultar", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Response<Object>> consultProduct() {
-        return new ResponseEntity<>(Response.builder().build(), HttpStatus.OK);
+    public ResponseEntity<Response<Object>> consultProduct(@RequestParam("producto") String productId) {
+        return new ResponseEntity<>(Response.builder()
+                .failure(false)
+                .code(HttpStatus.OK.value())
+                .message("")
+                .body(productsServices.handlerConsultProduct(productId))
+                .build(), HttpStatus.OK);
     }
 }

@@ -1,6 +1,6 @@
 package com.practice.evaluation.products.commons.exception;
 
-import com.practice.evaluation.products.dto.ConstraintViolationDto;
+import com.practice.evaluation.products.dto.validations.ConstraintViolationDto;
 import com.practice.evaluation.products.model.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

@@ -1,6 +1,6 @@
 package com.practice.evaluation.products.services.details;
 
-import com.practice.evaluation.products.dto.ProductsDetailsDto;
+import com.practice.evaluation.products.dto.details.ProductsDetailsDto;
 import com.practice.evaluation.products.entity.ProductsDetailsEntity;
 import com.practice.evaluation.products.model.ProductsRequest;
 import com.practice.evaluation.products.repository.ProductsDetailsRepository;

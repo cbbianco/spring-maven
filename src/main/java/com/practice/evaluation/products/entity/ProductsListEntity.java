@@ -1,14 +1,14 @@
 package com.practice.evaluation.products.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.practice.evaluation.products.commons.audit.Audit;
 import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigInteger;
+import java.util.List;
 
 /**
- * @apiNote ProductsEntity, 'entity' Entidad de Productos
+ * @apiNote ProductsEntity, 'entity' Entidad de Productos, haciendo JOIN desde JPA
  *
  * @version 1.0.0
  */
@@ -16,10 +16,11 @@ import java.math.BigInteger;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@ToString
 @Table(name = "productos")
 @Setter(AccessLevel.PUBLIC)
 @Getter(AccessLevel.PUBLIC)
-public class ProductsEntity extends Audit<String> {
+public class ProductsListEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,4 +47,12 @@ public class ProductsEntity extends Audit<String> {
     @JsonProperty("ram")
     @Column(name = "ram")
     private String ram;
+
+    /**
+     *
+     */
+    @JsonProperty("detalles")
+    @OneToMany(targetEntity = ProductsDetailsEntity.class,cascade = CascadeType.ALL)
+    @JoinColumn(name ="productos_id",referencedColumnName = "id")
+    private List<ProductsDetailsEntity> productsDetailsEntityList;
 }
