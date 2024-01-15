@@ -25,7 +25,6 @@ spring:
     enabled: true
     baseline-on-migrate: true
     locations: db/migration
-
 app:
   route: ${ROUTE:src/main/resources/complejidad.txt}
   uriMock: ${URI_MOCK:https://y77ov.wiremockapi.cloud/productos/mock}

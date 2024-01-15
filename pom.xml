@@ -19,6 +19,10 @@
     </properties>
     <dependencies>
         <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-cache</artifactId>
         </dependency>
@@ -125,6 +129,7 @@
                     <excludes>
                         <exclude>com/practice/evaluation/products/dto/**</exclude>
                         <exclude>com/practice/evaluation/products/model/**</exclude>
+                        <exclude>com/practice/evaluation/products/util/literal/**</exclude>
                         <exclude>com/practice/evaluation/products/entity/**</exclude>
                         <exclude>com/practice/evaluation/products/commons/audit/**</exclude>
                         <exclude>com/practice/evaluation/products/commons/interceptor/**</exclude>

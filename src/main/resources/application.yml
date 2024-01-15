@@ -1,37 +1,3 @@
-server:
-  port: 8080
-  address: 0.0.0.0
-  servlet:
-    context-path: /productos
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health
-      base-path: /
-
 spring:
-  application:
-    name: evaluation-practice-products-ms
-    route: src/main/resources/complejidad.txt
-  datasource:
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DB_NAME:db_evaluation}?serverTimezone=America/Bogota&allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true
-    username: ${MYSQL_USERNAME:root}
-    password: ${MYSQL_PASSWORD:ce54rb14nc01986$}
-  jpa:
-    show-sql: false
-  flyway:
-    enabled: true
-    baseline-on-migrate: true
-    locations: db/migration
-
-app:
-  route: ${ROUTE:src/main/resources/complejidad.txt}
-  uriMock: ${URI_MOCK:https://y77ov.wiremockapi.cloud/productos/mock}
-
-logging:
-  level:
-    org:
-      springframework:
-        cache=DEBUG:
+  profiles:
+    active: dev

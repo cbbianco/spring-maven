@@ -1,5 +1,6 @@
 package com.practice.evaluation.products.controller;
 
+import com.practice.evaluation.products.dto.response.ProductsResponseDto;
 import com.practice.evaluation.products.model.ProductsRequest;
 import com.practice.evaluation.products.model.Response;
 import com.practice.evaluation.products.services.ProductsServices;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * @apiNote ProductsController, Controller encargado de gestionar recibir las solicitudes asociadas a los productos
@@ -64,15 +66,16 @@ public class ProductsController {
      * @apiNote consultProduct, Endpoint encargado de consultar un producto y sus detalle
      *
      * @param productId de tipo {@link String}
-     * @return {@link ResponseEntity}&lt;{@link Response}&lt;{@link Object}&gt;&gt;
+     * @return {@link ResponseEntity}&lt;{@link Response}&lt;{@link List}&gt;&gt;
      */
     @GetMapping(value = "/productos/consultar", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Response<Object>> consultProduct(@RequestParam("producto") String productId) {
-        return new ResponseEntity<>(Response.builder()
+    public ResponseEntity<Response<List<ProductsResponseDto>>> consultProduct(@RequestParam("producto") String productId) {
+        var body = productsServices.handlerConsultProduct(productId);
+        return new ResponseEntity<>(Response.<List<ProductsResponseDto>>builder()
                 .failure(false)
                 .code(HttpStatus.OK.value())
                 .message("")
-                .body(productsServices.handlerConsultProduct(productId))
+                .body(body)
                 .build(), HttpStatus.OK);
     }
 }

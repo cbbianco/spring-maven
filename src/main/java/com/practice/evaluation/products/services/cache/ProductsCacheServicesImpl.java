@@ -4,6 +4,8 @@ import com.practice.evaluation.products.entity.ProductsEntity;
 import com.practice.evaluation.products.repository.ProductsRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
 
 import org.springframework.cache.annotation.Cacheable;
@@ -34,7 +36,7 @@ public class ProductsCacheServicesImpl implements ProductsCacheServices{
     public List<ProductsEntity> handlerProductsCache() {
         log.info("ProductsCacheServicesImpl@handlerProductsCache");
         var finder = this.productsRepository.findAll();
-        log.info("Productos Encontrados: {}", finder);
+        log.info("Productos Encontrados: {}", finder.size());
         if(finder.size() >= 2) {
             return finder.subList(0,2);
         }

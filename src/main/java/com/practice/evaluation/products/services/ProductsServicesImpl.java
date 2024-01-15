@@ -42,7 +42,7 @@ public class ProductsServicesImpl implements ProductsServices{
     private final ProductsDetailsServices productsDetailsServices;
 
     /**
-     *
+     * @apiNote Gestiona por SpringBoot la unión entre las tablas producto y detalles 'forma 2'
      */
     private final ProductsListRepository productsListRepository;
 
@@ -146,6 +146,7 @@ public class ProductsServicesImpl implements ProductsServices{
             }
 
             var productsCache = this.productsCacheServices.handlerProductsCache();
+            log.info("Productos Cacheados: {}", productsCache);
             if(!productsCache.isEmpty()) {
                 log.info("Productos obtenido del cache: {}", productsCache);
                 responseExtern.setProductsCache(productsCache);

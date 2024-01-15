@@ -122,6 +122,12 @@ Para la elaboración del punto #7, se elaboro lo siguiente:
 
 #### Nota: Se construyo una clase génerica de respuesta y consumo de servicios externos
 
+#### 8.- Se debe demostrar el manejo de properties por ambiente. Ej. la url del servicio externo de DEV es diferente a la de PROD.
+
+Se establecieron dos perfiles , dev y prod 'application-dev' y 'application-prod' se puede cambiar a donde se apunta a través
+del perfil activo en 'application', esto en resources/ ahora bien en cada perfil se manejan las variables que usa el servicio
+y pueden adoptar otros valores
+
 #### 9.- El objeto response del método GetById
 #### - a. maestro: data bd local + data cache + data servicio externo
 #### - b. detalle: data bd local

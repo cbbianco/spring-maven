@@ -2,13 +2,18 @@ package com.practice.evaluation.products.services;
 
 import com.practice.evaluation.products.commons.exception.ProductException;
 import com.practice.evaluation.products.dto.details.ProductsDetailsDto;
+import com.practice.evaluation.products.dto.response.ProductsResponseDto;
 import com.practice.evaluation.products.entity.ProductsEntity;
 import com.practice.evaluation.products.model.ProductsRequest;
+import com.practice.evaluation.products.repository.ProductsListRepository;
 import com.practice.evaluation.products.repository.ProductsRepository;
+import com.practice.evaluation.products.services.cache.ProductsCacheServices;
 import com.practice.evaluation.products.services.details.ProductsDetailsServices;
+import com.practice.evaluation.products.util.callhttp.NotifiedServices;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,7 +23,7 @@ import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
 
-@SpringBootTest(classes = {ProductsServicesImpl.class, ProductsDetailsServices.class, ProductsRepository.class})
+@SpringBootTest(classes = {ProductsServicesImpl.class, ProductsDetailsServices.class, ProductsRepository.class, ProductsListRepository.class, NotifiedServices.class, ProductsCacheServices.class})
 public class ProductsServicesImplTest {
 
     @Autowired
@@ -28,6 +33,18 @@ public class ProductsServicesImplTest {
     @Autowired
     @MockBean
     private ProductsRepository productsRepository;
+
+    @Autowired
+    @MockBean
+    private ProductsListRepository productsListRepository;
+
+    @Autowired
+    @MockBean
+    private ProductsCacheServices productsCacheServices;
+
+    @Autowired
+    @MockBean
+    private NotifiedServices<Object, ProductsResponseDto> notifiedServices;
 
     @Autowired
     private ProductsServicesImpl productsServicesImpl;
