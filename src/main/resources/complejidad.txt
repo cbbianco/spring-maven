@@ -97,3 +97,7 @@ URL: /api/v1/productos/guardar - Tiempo de respuesta: 12518 ms - 2024-01-15T02:4
 URL: /api/v1/productos/guardar - Tiempo de respuesta: 122 ms - 2024-01-15T02:47:57.982255
 URL: /api/v1/productos/guardar - Tiempo de respuesta: 155 ms - 2024-01-15T02:48:45.637736
 URL: /api/v1/productos/consultar - Tiempo de respuesta: 23 ms - 2024-01-15T02:48:45.717927
+URL: /api/v1/productos/guardar - Tiempo de respuesta: 150 ms - 2024-01-15T03:00:00.056661
+URL: /api/v1/productos/consultar - Tiempo de respuesta: 19 ms - 2024-01-15T03:00:00.126654
+URL: /api/v1/productos/guardar - Tiempo de respuesta: 162 ms - 2024-01-15T03:00:50.939183
+URL: /api/v1/productos/consultar - Tiempo de respuesta: 20 ms - 2024-01-15T03:00:51.012295
