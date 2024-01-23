@@ -101,3 +101,4 @@ URL: /api/v1/productos/guardar - Tiempo de respuesta: 150 ms - 2024-01-15T03:00:
 URL: /api/v1/productos/consultar - Tiempo de respuesta: 19 ms - 2024-01-15T03:00:00.126654
 URL: /api/v1/productos/guardar - Tiempo de respuesta: 162 ms - 2024-01-15T03:00:50.939183
 URL: /api/v1/productos/consultar - Tiempo de respuesta: 20 ms - 2024-01-15T03:00:51.012295
+URL: /productos/api/v1/productos/guardar - Tiempo de respuesta: 239 ms - 2024-01-22T17:24:24.722825
